@@ -8,6 +8,7 @@ public class Main {
         StudentAccount studentAccount = new StudentAccount("Lakshita", 50000000, "IIT BOMBAY");
 
         System.out.println(savingsAccount.getSimpleInterest(5));
+        System.out.println(savingsAccount.getCompoundInterest(10,5));
         System.out.println(savingsAccount.getMaxWithdrawalLimit());
 
         System.out.println(currentAccount.generateAccountNumber(12,77));
