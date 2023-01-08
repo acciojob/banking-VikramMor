@@ -1,7 +1,6 @@
 package com.driver;
 
 public class BankAccount {
-
     private String name;
     private double balance;
     private double minBalance;
@@ -12,7 +11,7 @@ public class BankAccount {
         this.minBalance = minBalance;
     }
 
-    public String generateAccountNumber(int digits, int sum) throws Exception{
+    public String generateAccountNumber(int digits, int sum) throws Exception {
         if (digits * 9 < sum) {
             throw new Exception("Account Number can not be generated");
         } else {
@@ -21,35 +20,32 @@ public class BankAccount {
                 accountNumber = accountNumber + "9";
             }
 
-            if(accountNumber.length() < digits){
+            if (accountNumber.length() < digits) {
                 accountNumber = accountNumber + sum;
-                int count = accountNumber.length();
-                while (count < digits){
+
+                for(int count = accountNumber.length(); count < digits; ++count) {
                     accountNumber = accountNumber + "0";
-                    count++;
                 }
             }
+
             return accountNumber;
         }
     }
 
     public void deposit(double amount) {
-
         this.balance += amount;
     }
 
     public void withdraw(double amount) throws Exception {
-
-        if(this.balance - amount >= minBalance){
+        if (this.balance - amount >= this.minBalance) {
             this.balance -= amount;
-        }
-        else{
+        } else {
             throw new Exception("Insufficient Balance");
         }
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -57,7 +53,7 @@ public class BankAccount {
     }
 
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
     public void setBalance(double balance) {
@@ -65,7 +61,7 @@ public class BankAccount {
     }
 
     public double getMinBalance() {
-        return minBalance;
+        return this.minBalance;
     }
 
     public void setMinBalance(double minBalance) {

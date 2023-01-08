@@ -1,58 +1,61 @@
 package com.driver;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-public class CurrentAccount extends BankAccount{
-    String tradeLicenseId; //consists of Uppercase English characters only
+public class CurrentAccount extends BankAccount {
+    String tradeLicenseId;
 
     public CurrentAccount(String name, double balance, String tradeLicenseId) throws Exception {
-        // minimum balance is 5000 by default. If balance is less than 5000, throw "Insufficient Balance" exception
-        super(name,balance,5000);
-        this.tradeLicenseId=tradeLicenseId;
-        if(balance<5000){
+        super(name, balance, 5000.0D);
+        this.tradeLicenseId = tradeLicenseId;
+        if (balance < 5000.0D) {
             throw new Exception("Insufficient Balance");
         }
     }
 
     public void validateLicenseId() throws Exception {
-        // A trade license Id is said to be valid if no two consecutive characters are same
-        // If the license Id is valid, do nothing
-        // If the characters of the license Id can be rearranged to create any valid license Id
-        // If it is not possible, throw "Valid License can not be generated" Exception
-        boolean isvalid=true;
-        for(int i=0;i<tradeLicenseId.length()-1;i++){
-            if(tradeLicenseId.charAt(i)==tradeLicenseId.charAt(i+1)){
-                isvalid=false;
+        boolean isvalid = true;
+
+        for(int i = 0; i < this.tradeLicenseId.length() - 1; ++i) {
+            if (this.tradeLicenseId.charAt(i) == this.tradeLicenseId.charAt(i + 1)) {
+                isvalid = false;
                 break;
             }
         }
-        if(!isvalid){
-            Map<Character,Integer> map = new HashMap<>();
-            for(int i=0;i<tradeLicenseId.length();i++){
-                if(!map.containsKey(tradeLicenseId.charAt(i))){
-                    map.put(tradeLicenseId.charAt(i),1);
-                }
-                else{
-                    map.put(tradeLicenseId.charAt(i),map.get(tradeLicenseId.charAt(i))+1);
+
+        if (!isvalid) {
+            Map<Character, Integer> map = new HashMap();
+
+            int maxvalue;
+            for(maxvalue = 0; maxvalue < this.tradeLicenseId.length(); ++maxvalue) {
+                if (!map.containsKey(this.tradeLicenseId.charAt(maxvalue))) {
+                    map.put(this.tradeLicenseId.charAt(maxvalue), 1);
+                } else {
+                    map.put(this.tradeLicenseId.charAt(maxvalue), (Integer)map.get(this.tradeLicenseId.charAt(maxvalue)) + 1);
                 }
             }
-            int maxvalue=0;
-            for(Integer i: map.values()){
-                maxvalue=Math.max(maxvalue,i);
+
+            maxvalue = 0;
+
+            Integer i;
+            for(Iterator var4 = map.values().iterator(); var4.hasNext(); maxvalue = Math.max(maxvalue, i)) {
+                i = (Integer)var4.next();
             }
-            if(maxvalue>Math.ceil(tradeLicenseId.length()/2)){
+
+            if ((double)maxvalue > Math.ceil((double)(this.tradeLicenseId.length() / 2))) {
                 throw new Exception("Valid License can not be generated");
             }
         }
+
     }
 
     public String getTradeLicenseId() {
-        return tradeLicenseId;
+        return this.tradeLicenseId;
     }
 
     public void setTradeLicenseId(String tradeLicenseId) {
         this.tradeLicenseId = tradeLicenseId;
     }
-
 }
