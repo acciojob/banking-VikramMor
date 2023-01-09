@@ -1,18 +1,15 @@
 package com.driver;
 
-public class StudentAccount extends BankAccount {
-    String institutionName;
+public class StudentAccount extends BankAccount{
 
-    public StudentAccount(String name, double balance, String institutionName) {
-        super(name, balance, 0.0D);
-        this.institutionName = institutionName;
+    String  institutionName;
+
+    public StudentAccount(String name, double balance, String  institutionName) {
+        //minimum balance is 0 by default
+        super(name,balance,0);
+        this.institutionName=institutionName;
     }
-
     public String getInstitutionName() {
-        return this.institutionName;
-    }
-
-    public void setInstitutionName(String institutionName) {
-        this.institutionName = institutionName;
+        return institutionName;
     }
 }
